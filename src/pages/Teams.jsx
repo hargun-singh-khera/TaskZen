@@ -4,6 +4,7 @@ import AddTeam from '../components/Modal/AddTeam'
 import useFetch from '../useFetch'
 import { Link, useNavigate } from 'react-router-dom'
 import AvatarGroup from '../components/AvatarGroup'
+import TeamsCardPlaceholder from '../components/Placeholders/TeamsCardPlaceholder'
 
 
 const Teams = () => {
@@ -33,13 +34,13 @@ const Teams = () => {
                         <AddTeam setTeams={setTeams} />
                     </div>
                     <div className="row">
-                        {loading && (
-                            <div className="d-flex justify-content-center align-items-center">
-                                <div class="spinner-border text-secondary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+                        {loading && 
+                            [...Array(3)].map((_, index) => (
+                                <div key={index} className="col-md-4">
+                                    <TeamsCardPlaceholder />
                                 </div>
-                            </div>
-                        )}
+                            ))
+                        }
                         {!loading && teams?.length === 0 && <p>No teams found.</p>}
                         {!loading && error && <p>Failed to fetch teams.</p>}
                         {!loading && teams?.length > 0 && teams?.map((team) => (

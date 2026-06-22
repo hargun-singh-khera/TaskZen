@@ -5,7 +5,7 @@ import AddTask from '../components/Modal/AddTask'
 import { Toaster } from 'react-hot-toast'
 import useFetch from '../useFetch'
 import Badge from '../components/Badge'
-import { Navigate , useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import AvatarGroup from '../components/AvatarGroup'
 import ProjectCardPlaceholder from '../components/Placeholders/ProjectCardPlaceholder'
 import TasksCardPlaceholder from '../components/Placeholders/TasksCardPlaceholder'
@@ -77,13 +77,12 @@ const Dashboard = () => {
                             <AddProject setProjects={setProjects} />
                         </div>
                         <div className="row ">
-                            {projectsLoading && 
-                                // <div className="d-flex justify-content-center align-items-center">
-                                //     <div class="spinner-border text-secondary" role="status">
-                                //         <span class="visually-hidden">Loading...</span>
-                                //     </div>
-                                // </div>
-                                [1, 2, 3].map((placeholder) => <div className="col-md-4"><ProjectCardPlaceholder key={placeholder} /></div>)
+                            {projectsLoading &&
+                                [...Array(3)].map((_, index) => (
+                                    <div key={index} className="col-md-4">
+                                        <ProjectCardPlaceholder />
+                                    </div>
+                                ))
                             }
                             {!projectsLoading && projectsError && <p>Failed to load projects.</p>}
                             {!projectsLoading && filteredProjects?.length === 0 && !projectsError && <p>No projects found.</p>}
@@ -113,14 +112,13 @@ const Dashboard = () => {
                             <AddTask setTasks={setTasks} projects={projects} />
                         </div>
                         <div className="row">
-                            {tasksLoading && (
-                                // <div className="d-flex justify-content-center align-items-center">
-                                //     <div class="spinner-border text-secondary" role="status">
-                                //         <span class="visually-hidden">Loading...</span>
-                                //     </div>
-                                // </div>
-                                [1, 2, 3].map((placeholder) => <div className="col-md-4"><TasksCardPlaceholder key={placeholder} /></div>)
-                            )}
+                            {tasksLoading &&
+                                [...Array(3)].map((_, index) => (
+                                    <div key={index} className="col-md-4">
+                                        <TasksCardPlaceholder />
+                                    </div>
+                                ))
+                            }
                             {!tasksLoading && tasksError && <p>Failed to load tasks.</p>}
                             {filteredTasks?.length === 0 && !tasksError && <p>No tasks found.</p>}
                             {!tasksError && filteredTasks?.length > 0 && filteredTasks?.map((task => (
