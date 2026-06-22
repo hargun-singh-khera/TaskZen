@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const AddProject = ({ setProjects }) => {
@@ -69,7 +69,7 @@ const AddProject = ({ setProjects }) => {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button className="btn btn-primary" disabled={loading} >
+                        <button className="btn btn-primary" disabled={loading}>
                             {loading && <span className="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>}
                             {!loading ? "Create" : "Creating..."}
                         </button>

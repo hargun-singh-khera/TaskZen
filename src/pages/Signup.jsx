@@ -83,16 +83,20 @@ const Signup = () => {
                 <div className="mb-3 position-relative">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type={`${isVisible ? "text" : "password"}`} className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" />
-                    <span className="position-absolute bottom-0 end-0 me-3 pb-2" onClick={() => setIsVisible(!isVisible)}>
-                        {isVisible ? ( <i className="bi bi-eye"></i> ) : ( <i className="bi bi-eye-slash"></i> )}
-                    </span>
+                    <button type="button" className="btn position-absolute bottom-0 end-0 border-0" onClick={() => setIsVisible(!isVisible)}>
+                        {/* <span className="position-absolute bottom-0 end-0 me-3 pb-2" onClick={() => setIsVisible(!isVisible)}> */}
+                            {isVisible ? ( <i className="bi bi-eye"></i> ) : ( <i className="bi bi-eye-slash"></i> )}
+                        {/* </span> */}
+                    </button>
                 </div>
-                <button className="btn btn-primary w-100" disabled={loading}>
+                <button className="btn btn-primary w-100 border-0" disabled={loading}>
                     {loading && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
                     {!loading && "Create account"}
                 </button>
+                {/* <hr /> */}
+                {/* <button type="button" className="btn btn-outline-primary w-100">Sign up with Google</button> */}
             </form>
-            <div>
+            <div className="mt-3">
                 <p>Already have an account? 
                     <span className="ms-2 fw-semibold"><Link to={"/"} className="text-decoration-none" style={{ color: "blueviolet"}}>Sign in</Link></span>
                 </p>

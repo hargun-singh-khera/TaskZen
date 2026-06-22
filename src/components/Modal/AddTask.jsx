@@ -192,7 +192,7 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                         <div className="row">
                             <div className="col">
                                 <label for="dueDate" className="form-label">Due Date</label>
-                                <input type="date" className="form-control" id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} placeholder="Select Date" />
+                                <input type="date" className="form-control" id="dueDate" name="dueDate" min={new Date().toISOString().split('T')[0]} value={formData.dueDate} onChange={handleChange} placeholder="Select Date" />
                             </div>
                             <div className="col">
                                 <label for="estTime" className="form-label">Estimated Time</label>
