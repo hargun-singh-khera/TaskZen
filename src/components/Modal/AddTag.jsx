@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
+import { BACKEND_URL } from '../../config';
 
 const AddTag = ({ setTags }) => {
     const [name, setName] = useState("")
@@ -14,11 +15,11 @@ const AddTag = ({ setTags }) => {
         }
         try {
             setLoading(true)
-            const response = await fetch("https://taskzen-backend-wheat.vercel.app/tags", {
+            const response = await fetch(`${BACKEND_URL}/tags`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify({ name })
             })

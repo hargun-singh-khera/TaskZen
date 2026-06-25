@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { BACKEND_URL } from '../../config'
 
 const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams, setTags }) => {
     const [loading, setLoading] = useState(false)
@@ -7,13 +8,13 @@ const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams, setTags })
     const handleDelete = async () => {
         try {
             setLoading(true)
-            const url = modalId === "projectModal" ? `https://taskzen-backend-wheat.vercel.app/project/${id}` : modalId === "taskModal" ? `https://taskzen-backend-wheat.vercel.app/task/${id}` : modalId === "teamModal" ? `https://taskzen-backend-wheat.vercel.app/team/${id}` : `https://taskzen-backend-wheat.vercel.app/tag/${id}`
+            const url = modalId === "projectModal" ? `${BACKEND_URL}/project/${id}` : modalId === "taskModal" ? `${BACKEND_URL}/task/${id}` : modalId === "teamModal" ? `${BACKEND_URL}/team/${id}` : `${BACKEND_URL}/tag/${id}`
             // console.log("url", url)
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 }
             })
             // console.log("response", response)

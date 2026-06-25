@@ -5,12 +5,13 @@ import { Link, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import useFetch from '../useFetch'
 import toast from 'react-hot-toast'
+import { BACKEND_URL } from '../config'
 
 const TaskDetails = () => {
     const { taskId } = useParams()
-    const { data, loading, error } = useFetch(`https://taskzen-backend-wheat.vercel.app/task/${taskId}`)
+    const { data, loading, error } = useFetch(`${BACKEND_URL}/task/${taskId}`)
     const [task, setTask] = useState(null)
-    // console.log("task", task)
+    console.log("task", task)
 
     useEffect(() => {
         if (data) {
@@ -21,11 +22,11 @@ const TaskDetails = () => {
 
     const handleMarkComplete = async () => {
         try {
-            const response = await fetch(`https://taskzen-backend-wheat.vercel.app/task/${taskId}`, {
+            const response = await fetch(`${BACKEND_URL}/task/${taskId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify({ ...task, status: "Completed" })
             })
@@ -38,10 +39,12 @@ const TaskDetails = () => {
             setTask(prev => ({ ...prev, status: "Completed" }))
             toast.success("Task marked completed")
         } catch (error) {
-            toast.error("Failed to mark task as completed")
+            toast.error("Failed to mark task as completed");
             console.error("Error while marking task as complete", error.message)
         }
     }
+
+    const isCompleted = task?.status === "Completed";
 
     return (
         <div className='container-fluid'>
@@ -99,7 +102,7 @@ const TaskDetails = () => {
 
                                     <div className="row mb-3">
                                         <div className="col-sm-4 text-muted">Status</div>
-                                        <div className="col-sm-8">{task?.status}</div>
+                                        <div className={`col-sm-8 ${task?.status === "Completed" ? 'text-success' : task?.status === "In Progress" ? 'text-warning' : 'text-danger'}`}>{task?.status}</div>
                                     </div>
 
                                     <div className="row mb-3">
@@ -107,11 +110,13 @@ const TaskDetails = () => {
                                         <div className="col-sm-8">{task?.timeToComplete} Days</div>
                                     </div>
 
-                                    <hr />
+                                    {!isCompleted && <div>
+                                        <hr />
+                                        <button type="button" onClick={handleMarkComplete} className="btn btn-success w-100">
+                                            Mark as Complete
+                                        </button>
+                                    </div>}
 
-                                    <button type="button" onClick={handleMarkComplete} className="btn btn-success w-100">
-                                        Mark as Complete
-                                    </button>
                                 </div>
                             </div>
                         </div>

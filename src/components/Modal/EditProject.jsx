@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
+import { BACKEND_URL } from '../../config';
 
 const EditProject = ({ setProjects }) => {
 
@@ -24,11 +25,11 @@ const EditProject = ({ setProjects }) => {
         }
         try {
             setLoading(true)
-            const response = await fetch("https://taskzen-backend-wheat.vercel.app/projects", {
+            const response = await fetch(`${BACKEND_URL}/projects`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify(formData)
             })

@@ -5,6 +5,7 @@ import { Link, useLocation, useParams } from 'react-router-dom'
 import useFetch from '../useFetch'
 import { getFormattedDate } from './Dashboard'
 import AvatarGroup from '../components/AvatarGroup'
+import { BACKEND_URL } from '../config'
 
 const Badge = ({ priority }) => {
     return (<span className="px-2 rounded-pill" style={{ backgroundColor: `${priority === "High" ? "#FDE2E1" : priority === "Low" ? "#F1F3F5" : "#E8E1FF"}`, color: `${priority === "High" ? "#C0392B" : priority === "Low" ? "#6C757D" : "#6F42C1"}` }}>
@@ -15,10 +16,10 @@ const Badge = ({ priority }) => {
 const Project = () => {
     const { projectId } = useParams()
     // console.log("projectId", projectId)
-    // const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`https://taskzen-backend-wheat.vercel.app/project/${projectId}`)
+    // const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`${BACKEND_URL}/project/${projectId}`)
     const location = useLocation()
     const projectData = location?.state?.project
-    const { data, loading, error } = useFetch(`https://taskzen-backend-wheat.vercel.app/tasks/project/${projectId}`)
+    const { data, loading, error } = useFetch(`${BACKEND_URL}/tasks/project/${projectId}`)
     // console.log("data", data)
 
     const [status, setStatus] = useState("")

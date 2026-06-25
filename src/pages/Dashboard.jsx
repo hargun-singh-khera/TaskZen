@@ -9,6 +9,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import AvatarGroup from '../components/AvatarGroup'
 import ProjectCardPlaceholder from '../components/Placeholders/ProjectCardPlaceholder'
 import TasksCardPlaceholder from '../components/Placeholders/TasksCardPlaceholder'
+import { BACKEND_URL } from '../config'
 
 export const getFormattedDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
@@ -22,8 +23,8 @@ const Dashboard = () => {
         return <Navigate to="/" replace />
     }
 
-    const { data: projectsData, loading: projectsLoading, error: projectsError } = useFetch("https://taskzen-backend-wheat.vercel.app/projects")
-    const { data: tasksData, loading: tasksLoading, error: tasksError } = useFetch("https://taskzen-backend-wheat.vercel.app/tasks")
+    const { data: projectsData, loading: projectsLoading, error: projectsError } = useFetch(`${BACKEND_URL}/projects`)
+    const { data: tasksData, loading: tasksLoading, error: tasksError } = useFetch(`${BACKEND_URL}/tasks`)
 
     const [projects, setProjects] = useState(null)
     const [tasks, setTasks] = useState(null)

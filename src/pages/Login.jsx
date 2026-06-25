@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../config';
 
 const Login = () => {
 
@@ -25,7 +26,7 @@ const Login = () => {
         else {
             try {
                 setLoading(true)
-                const response = await fetch("https://taskzen-backend-wheat.vercel.app/auth/login", {
+                const response = await fetch(`${BACKEND_URL}/auth/login`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

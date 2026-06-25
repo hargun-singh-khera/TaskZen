@@ -5,12 +5,12 @@ import useFetch from '../useFetch'
 import { Link, useNavigate } from 'react-router-dom'
 import AvatarGroup from '../components/AvatarGroup'
 import TeamsCardPlaceholder from '../components/Placeholders/TeamsCardPlaceholder'
-
+import { BACKEND_URL } from '../config'
 
 const Teams = () => {
 
     const navigate = useNavigate()
-    const { data: teamsData, loading, error } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
+    const { data: teamsData, loading, error } = useFetch(`${BACKEND_URL}/teams`)
 
     // const teams = teamsData?.teams
     const [teams, setTeams] = useState([])
@@ -41,9 +41,9 @@ const Teams = () => {
                                 </div>
                             ))
                         }
-                        {!loading && teams?.length === 0 && <p>No teams found.</p>}
                         {!loading && error && <p>Failed to fetch teams.</p>}
-                        {!loading && teams?.length > 0 && teams?.map((team) => (
+                        {!loading && !error && teams?.length === 0 && <p>No teams found.</p>}
+                        {!loading && !error && teams?.length > 0 && teams?.map((team) => (
                             <button key={team?._id} onClick={() => navigate(`/teams/${team?._id}`, { state: { team: teams?.find(t => t._id === team._id) } })} className="btn border-0 col-md-4 text-decoration-none">
                                 <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
                                     <div className="card-body">

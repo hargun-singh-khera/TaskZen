@@ -3,19 +3,20 @@ import Sidebar from '../components/Sidebar'
 import useFetch from '../useFetch';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { BACKEND_URL } from '../config';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const Reports = () => {
-    // const { data: lastWeekData, loading: lastWeekLoading } = useFetch("https://taskzen-backend-wheat.vercel.app/report/last-week")
-    const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch("https://taskzen-backend-wheat.vercel.app/report/last-week")
+    // const { data: lastWeekData, loading: lastWeekLoading } = useFetch("${BACKEND_URL}/report/last-week")
+    const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch(`${BACKEND_URL}/report/last-week`)
     // console.log("lastWeekData", lastWeekData)
-    // const { data: pendingWorkData, loading: pendingWorkLoading } = useFetch("https://taskzen-backend-wheat.vercel.app/report/pending")
-    const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch("https://taskzen-backend-wheat.vercel.app/report/pending")
+    // const { data: pendingWorkData, loading: pendingWorkLoading } = useFetch("${BACKEND_URL}/report/pending")
+    const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch(`${BACKEND_URL}/report/pending`)
     // console.log("pendingWorkData", pendingWorkData)
 
-    const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch("https://taskzen-backend-wheat.vercel.app/report/closed-tasks")
+    const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch(`${BACKEND_URL}/report/closed-tasks`)
     // console.log("closedTasksData", closedTasksData)
 
     const tasksClosedByTeams = closedTasksData?.tasks[0]?.closedByTeam

@@ -3,13 +3,14 @@ import makeAnimated from 'react-select/animated';
 import Select from 'react-select'
 import useFetch from '../../useFetch'
 import toast from 'react-hot-toast';
+import { BACKEND_URL } from '../../config';
 
 const AddTeam = ({ setTeams }) => {
     const animatedComponents = makeAnimated();
-    const { data: teamsData } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
+    const { data: teamsData } = useFetch(`${BACKEND_URL}/teams`)
     // const teams = teamsData?.teams
 
-    const { data: usersData } = useFetch("https://taskzen-backend-wheat.vercel.app/users")
+    const { data: usersData } = useFetch(`${BACKEND_URL}/users`)
     // console.log("usersData", usersData)
     const users = usersData?.users
 
@@ -57,11 +58,11 @@ const AddTeam = ({ setTeams }) => {
                 members: members?.map(member => ({ name: member.value }))
             }
             // console.log("payload", payload)
-            const response = await fetch("https://taskzen-backend-wheat.vercel.app/teams", {
+            const response = await fetch(`${BACKEND_URL}/teams`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify(payload)
             })

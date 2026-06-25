@@ -8,21 +8,19 @@ const useFetch = (url) => {
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token")
-            // console.log("token", token)
-            // const headers = {
-            //     "Content-Type": "application/json",
-            // }
-            // if (token) {
-            //     headers["Authorization"] = `Bearer ${token}`
-            // }
+            console.log("token", token)
+            const headers = {
+                "Content-Type": "application/json",
+            }
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`
+            }
             try {
                 setLoading(true)
                 const response = await fetch(url, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": token
-                    }
+                    headers
                 })
+                console.log("response", response);
                 if (!response.ok) {
                     throw new Error("Failed to fetch data")
                 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { BACKEND_URL } from '../../config'
 
 const AddMember = ({ members, setMembers, teamId }) => {
     // console.log("teamId", teamId)
@@ -16,12 +17,11 @@ const AddMember = ({ members, setMembers, teamId }) => {
             setLoading(true)
             const result = JSON.stringify({name})
             // console.log("result", result)
-            // console.log("token", localStorage.getItem("token"))
-            const response = await fetch(`https://taskzen-backend-wheat.vercel.app/teams/${teamId}/member`, {
+            const response = await fetch(`${BACKEND_URL}/teams/${teamId}/member`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token")
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify({name})
             })

@@ -3,6 +3,7 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import useFetch from '../../useFetch'
 import toast from 'react-hot-toast';
+import { BACKEND_URL } from '../../config';
 
 const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) => {
     const animatedComponents = makeAnimated();
@@ -36,10 +37,10 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    // const { data: projectsData } = useFetch("https://taskzen-backend-wheat.vercel.app/projects")
-    const { data: teamsData } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
-    const { data: tagsData } = useFetch("https://taskzen-backend-wheat.vercel.app/tags")
-    const { data: ownersData } = useFetch("https://taskzen-backend-wheat.vercel.app/users")
+    // const { data: projectsData } = useFetch(`${BACKEND_URL}/projects")
+    const { data: teamsData } = useFetch(`${BACKEND_URL}/teams`)
+    const { data: tagsData } = useFetch(`${BACKEND_URL}/tags`)
+    const { data: ownersData } = useFetch(`${BACKEND_URL}/users`)
 
     // const projects = projectsData?.projects
     const teams = teamsData?.teams
@@ -72,11 +73,11 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                 timeToComplete,
             }
             // console.log("payload", payload)
-            const response = await fetch("https://taskzen-backend-wheat.vercel.app/tasks", {
+            const response = await fetch(`${BACKEND_URL}/tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify(payload)
             })
